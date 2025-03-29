@@ -1,0 +1,30 @@
+{
+  "name": "cmv",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --exec tsx watch src/server.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/node": "^22.13.14",
+    "@types/pg": "^8.11.11",
+    "@types/sequelize": "^4.28.20",
+    "dotenv": "^16.4.7",
+    "nodemon": "^3.1.9",
+    "sequelize": "^6.37.7",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "@types/express": "^5.0.1",
+    "esbuild": "^0.25.1",
+    "express": "^4.21.2",
+    "pg": "^8.14.1",
+    "pg-hstore": "^2.3.4"
+  }
+}
