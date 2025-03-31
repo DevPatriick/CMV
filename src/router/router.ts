@@ -11,8 +11,9 @@ const asyncHandler = (fn: Function) => {
 };
 
 // Definindo a rota para obter empresas
-router.get('/companies', asyncHandler(controllerCompany.getCompany));
+router.get('/companiesAll', asyncHandler(controllerCompany.getCompany));
 router.post('/companies', asyncHandler(controllerCompany.createAccount))
 router.put('/companies/:id', asyncHandler(controllerCompany.updateAccount))
+router.get('/companies', asyncHandler(controllerCompany.getOneCompany))
 
 export default router;

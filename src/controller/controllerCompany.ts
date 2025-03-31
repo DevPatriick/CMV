@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import Accounts from '../models/modelCompany';
 import { Op } from 'sequelize';
+import bcrypt from 'bcrypt';
 
 const controllerCompany = {
   async getCompany(req: Request, res: Response): Promise<Response> {
@@ -18,27 +19,18 @@ const controllerCompany = {
   },
 
   async getOneCompany(req: Request, res: Response): Promise<Response> {
-    const { id, company, cnpj, email, status } = req.params;
+    const { id, company, cnpj, email, status } = req.query; 
 
     try {
-        let getCompany;
+        let whereCondition: any = {};
 
-        if (id) {
-            // Busca pelo ID
-            getCompany = await Accounts.findByPk(id);
-        } else {
-            // Busca pelos outros campos
-            getCompany = await Accounts.findOne({
-                where: {
-                    [Op.or]: [
-                        company ? { company: { [Op.iLike]: `%${company}%` } } : null,
-                        cnpj ? { cnpj: cnpj } : null,
-                        email ? { email: email } : null,
-                        status ? { status: status } : null
-                    ].filter(Boolean) // Remove campos nulos
-                }
-            });
-        }
+        if (id) whereCondition.id = id;
+        if (company) whereCondition.company = { [Op.iLike]: `%${company}%` };
+        if (cnpj) whereCondition.cnpj = cnpj;
+        if (email) whereCondition.email = email;
+        if (status) whereCondition.status = status;
+
+        const getCompany = await Accounts.findOne({ where: whereCondition });
 
         if (!getCompany) {
             return res.status(404).json({ error: "Empresa não encontrada!" });
@@ -49,12 +41,15 @@ const controllerCompany = {
         console.error(error);
         return res.status(500).json({ error: "Erro ao buscar empresa!" });
     }
-},
+}
+,
 
   async createAccount(req: Request, res: Response): Promise<void> {
     const { company , cnpj, email, password, status } = req.body
     try {
       console.log('Criando empresa...')
+
+      const bcryptPass = bcrypt.hashSync(password, 10)
 
       if(!company || !cnpj || !email || !password ){
          res.status(400).json({error:"Todos os campos são obrigatórios"})
@@ -64,7 +59,7 @@ const controllerCompany = {
         company, 
         cnpj, 
         email,
-        password, 
+        password: bcryptPass, 
         status: status || "ATIVO"
       }
 
