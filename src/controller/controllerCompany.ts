@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import Accounts from '../models/modelCompany';
 import { Op } from 'sequelize';
-import bcrypt from 'bcrypt';
+// import bcrypt from 'bcrypt';
 
 const controllerCompany = {
   async getCompany(req: Request, res: Response): Promise<Response> {
@@ -49,7 +49,7 @@ const controllerCompany = {
     try {
       console.log('Criando empresa...')
 
-      const bcryptPass = bcrypt.hashSync(password, 10)
+      // const bcryptPass = bcrypt.hashSync(password, 10)
 
       if(!company || !cnpj || !email || !password ){
          res.status(400).json({error:"Todos os campos são obrigatórios"})
@@ -59,7 +59,7 @@ const controllerCompany = {
         company, 
         cnpj, 
         email,
-        password: bcryptPass, 
+        password, 
         status: status || "ATIVO"
       }
 
