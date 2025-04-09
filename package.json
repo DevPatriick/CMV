@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@types/express": "^5.0.1",
+    "bcrypt-ts": "^6.0.0",
     "esbuild": "^0.25.1",
     "express": "^4.21.2",
     "pg": "^8.14.1",

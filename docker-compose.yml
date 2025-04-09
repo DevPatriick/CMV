@@ -13,12 +13,13 @@ services:
       - docker_pg_data:/bitnami/postgresql
     
   node:
-    image: node:22.14.0
+    build: .
     working_dir: /app
     ports:
       - '3000:3000'
     volumes:
       - .:/app
+      - /app/node_modules
     command: npm run dev 
     environment:
       - DB_NAME=docker
