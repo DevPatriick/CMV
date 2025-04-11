@@ -1,5 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
-import db from '../database/db'; // Onde você configura o Sequelize
+import db from '../database/db'; 
 
 class Accounts extends Model {
   public id!: number;
@@ -46,7 +46,7 @@ Accounts.init(
   {
     sequelize: db,
     tableName: 'accounts',
-    timestamps: false,  // Desabilita as colunas createdAt e updatedAt
+    timestamps: false, 
   }
 );
 
