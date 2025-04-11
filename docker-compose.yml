@@ -9,23 +9,23 @@ services:
       - POSTGRES_USER=docker
       - POSTGRES_PASSWORD=docker
       - POSTGRES_DB=docker
-    volumes:
-      - docker_pg_data:/bitnami/postgresql
+    
     
   node:
-    image: node:22.14.0
+    build: .
     working_dir: /app
     ports:
       - '3000:3000'
     volumes:
       - .:/app
-    command: npm run dev 
+      - /app/node_modules
+    command: sh -c "sleep 10 && npx sequelize-cli db:migrate && npm run dev"
     environment:
-      - DB_NAME=docker
       - DB_USER=docker
-      - DB_PASS=docker
+      - DB_PASSWORD=docker
+      - DATABASE=docker
       - DB_HOST=postgres  
       - DB_PORT=5432
 
-volumes:
-  docker_pg_data:
+
+
