@@ -13,8 +13,8 @@ const asyncHandler = (fn: Function) => {
 
 
 router.get('/companiesAll', asyncHandler(controllerCompany.getCompany));
-router.post('/companies', asyncHandler(controllerCompany.createAccount))
-router.put('/companies/:id', asyncHandler(controllerCompany.updateAccount))
+router.post('/companies', controllerCompany.createAccount)
+router.put('/companies/:id', controllerCompany.updateAccount)
 router.get('/companies', asyncHandler(controllerCompany.getOneCompany))
 
 router.get('/products/:account_id', asyncHandler(controllerProduct.getProducts));

@@ -49,6 +49,7 @@ const controllerCompany = {
     try {
       console.log('Criando empresa...')
 
+
       if(!company || !cnpj || !email || !password ){
         res.status(400).json({error:"Todos os campos são obrigatórios"})
       }
