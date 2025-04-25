@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import Accounts from '../models/modelCompany';
 import { Op } from 'sequelize';
-// import bcrypt from 'bcrypt';
+import { genSaltSync, hashSync } from 'bcryptjs';
 
 const controllerCompany = {
   async getCompany(req: Request, res: Response): Promise<Response> {
@@ -54,13 +54,14 @@ const controllerCompany = {
         res.status(400).json({error:"Todos os campos são obrigatórios"})
       }
 
-      // const bcryptPass = bcrypt.hashSync(password, 10)
+      const salt = genSaltSync(10);
+      const resultPass = hashSync(password, salt)
 
       const companyData = {
         company, 
         cnpj, 
         email,
-        password, 
+        password: resultPass, 
         status: status || "ATIVO"
       }
 

@@ -23,6 +23,10 @@ Product.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    sale_cust: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false
+    },
     sale_price: {
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false,

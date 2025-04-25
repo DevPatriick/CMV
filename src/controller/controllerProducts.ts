@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import Products from '../models/modelProducts';
 import { Op } from 'sequelize';
-// import bcrypt from 'bcrypt';
 
 const controllerProduct = {
     async getProducts(req: Request, res: Response): Promise<Response> {
@@ -26,7 +25,7 @@ const controllerProduct = {
       },
 
   async createProduct(req: Request, res: Response): Promise<void> {
-    const { name , sale_price} = req.body
+    const { name , sale_price, sale_cust} = req.body
     const { account_id } = req.params;
     try {
       console.log('Criando Produto...')
@@ -35,11 +34,10 @@ const controllerProduct = {
         res.status(400).json({error:"Todos os campos são obrigatórios"})
       }
 
-      // const bcryptPass = bcrypt.hashSync(password, 10)
-
       const productData = {
         name, 
         sale_price,
+        sale_cust,
         account_id: Number(account_id)
       }
 

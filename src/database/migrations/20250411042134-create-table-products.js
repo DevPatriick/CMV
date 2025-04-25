@@ -24,6 +24,10 @@ module.exports = {
         type: Sequelize.STRING(255),
         allowNull: false,
       },
+      sale_cust: {
+        type: Sequelize.DECIMAL(10,2),
+        allowNull: false
+      },
       sale_price: {
         type: Sequelize.DECIMAL(10, 2),
         allowNull: false,
