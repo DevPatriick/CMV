@@ -42,11 +42,12 @@ Accounts.init(
         isIn: [['ATIVO', 'CANCELADO']],
       },
     },
+     createdAt: DataTypes.DATE,
+     updatedAt: DataTypes.DATE
   },
   {
     sequelize: db,
     tableName: 'accounts',
-    timestamps: false, 
   }
 );
 

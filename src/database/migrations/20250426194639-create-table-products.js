@@ -3,50 +3,50 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('product_ingredients', {
-      product_id: {
+    await queryInterface.createTable('ingredients', {
+      id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+        allowNull: false,
+      },
+      category_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'products',
+          model: 'categories_ingredients',
           key: 'id',
         },
         onDelete: 'CASCADE',
-      },
-      ingredient_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'ingredients',
-          key: 'id',
-        },
-        onDelete: 'CASCADE',
-      },
-      quantity: {
-        type: Sequelize.DECIMAL(10, 4),
+        onUpdate: 'CASCADE',
+      }, 
+      name: {
+        type: Sequelize.STRING(255),
         allowNull: false,
       },
-      created_at: {
+      unit: {
+        type: Sequelize.ENUM('Unidade', 'Grama', 'Quilo'),
+        allowNull: false
+      },
+      stock: {
+        type: Sequelize.DECIMAL(10, 3),
+        allowNull: true
+      },
+      createdAt: {
         type: Sequelize.DATE,
         allowNull: false,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       },
-      updated_at: {
+      updatedAt: {
         type: Sequelize.DATE,
         allowNull: false,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       },
-    });
-
-    // Adiciona a PK composta após a criação da tabela
-    await queryInterface.addConstraint('product_ingredients', {
-      fields: ['product_id', 'ingredient_id'],
-      type: 'primary key',
-      name: 'pk_product_ingredients'
     });
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('product_ingredients');
+    await queryInterface.dropTable('ingredients');
   }
 };
+

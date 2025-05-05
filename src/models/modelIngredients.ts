@@ -1,41 +1,45 @@
-import { DataTypes, Model } from 'sequelize';
 import db from '../database/db';
+import { DataTypes, Model } from "sequelize";
 
-class Ingredient extends Model {
-  public id!: number;
+class Ingredients extends Model {
+  declare public id: number;
+  public category_id!: number;
   public name!: string;
-  public unit!: 'kilo' | 'grama' | 'unidade';
-  public cost_per_unit!: number;
+  public unit!: number;
+  public stock!: number;
 }
 
-Ingredient.init(
+Ingredients.init(
   {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
+    category_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     unit: {
-      type: DataTypes.STRING(20),
-      allowNull: false,
-      validate: {
-        isIn: [['kilo', 'grama', 'unidade']],
-      },
+      type: DataTypes.ENUM('Unidade', 'Gramas', 'Quilo'),
+      allowNull: false
     },
-    cost_per_unit: {
-      type: DataTypes.DECIMAL(10, 4),
-      allowNull: false,
+    stock: {
+      type: DataTypes.DECIMAL(10,3),
+      allowNull: true
     },
+    createdAt: DataTypes.DATE,
+    updatedAt: DataTypes.DATE
   },
   {
     sequelize: db,
     tableName: 'ingredients',
-    timestamps: false,
   }
 );
 
-export default Ingredient;
+
+export default Ingredients;
